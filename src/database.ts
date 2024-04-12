@@ -8,4 +8,4 @@ var connection=mysql.createConnection({
     password:'password',    
 });
 
-module.exports=connection;
+export default connection;
