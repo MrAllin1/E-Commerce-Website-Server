@@ -1,0 +1,16 @@
+{
+    "scripts": {
+    "start:deployment": "node ./dist/index.js",
+    "start": "nodemon ./src/index.ts",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
