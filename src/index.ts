@@ -1,15 +1,16 @@
 import express from 'express';
+import signUpRouter from './authentication/routes/sign_up';
+import logInRouter from './authentication/routes/log_in';
 
-
-var connection = require('./database');
 const app = express();
 
 const port = 3000;
 
+app.use(express.json());
+
+app.use('/signUp', signUpRouter);
+app.use('/logIn', logInRouter);
 app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`);
-    connection.connect((err:any)=>{
-        if(err) throw err;
-        console.log('Connected to database');
-    });
+    console.log(`Server is running on url http://localhost:${port}`);
+
 })
