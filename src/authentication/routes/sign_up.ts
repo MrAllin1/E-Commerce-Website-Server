@@ -6,15 +6,15 @@ import getDoesUserExistData from '../data/does_user_exist_data';
 import insertNewUser from '../data/insert_new_user';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../../.env' });
-
+import { SignUpRequest,SignUpResponse } from '../../types/sign_up';
 
 const router: Router = express.Router();
 
 router.post('/', [
-  check('email', 'Please provide a valid email').isEmail(),
-  check('username', 'Please provide a username').not().isEmpty(), // Check for the presence of the 'username' field
-  check('password', 'Please provide a password that is greater than 5 characters').isLength({ min: 6 })
-], async (req: Request, res: Response) => {
+    check('email', 'Please provide a valid email').isEmail(),
+    check('username', 'Please provide a username').not().isEmpty(), // Check for the presence of the 'username' field
+    check('password', 'Please provide a password that is greater than 5 characters').isLength({ min: 6 })
+  ],async (req: Request<{}, {}, SignUpRequest>, res: Response<SignUpResponse>) => {
   const { username, email, password } = req.body;
 
   // Check if username field is present
@@ -42,7 +42,7 @@ router.post('/', [
   
         console.log('Hashed password:', hashedPassword);
   
-        return res.json({ token });
+        return res.json({ token:token, username: username, email: email});
       } else {
         // Handle case where user insertion failed
         return res.status(500).json({ errors: [{ msg: "Failed to add user" }] });

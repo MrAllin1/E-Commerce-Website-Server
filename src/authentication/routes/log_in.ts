@@ -2,42 +2,19 @@ import express, { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
 const router: Router = express.Router();
+import connection from '../../database'; 
+import { LogInRequest,LogInResponse } from '../../types/log_in';
+import getDoesUserExistData from '../data/does_user_exist_data';
 
-import connection from '../../database'; // Assuming database.ts is in the same directory
-
-interface IUser {
-  email: string;
-  password: string;
-}
-
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request<LogInRequest>, res: Response<LogInResponse>) => {
   try {
     const { password, email } = req.body;
 
     // Query to check if user exists
-    connection.query('SELECT * FROM Perdoruesi WHERE email = ?', [email], async (error:any, results:any, fields:any) => {
-      if (error) {
-        console.error("Error retrieving user:", error);
-        return res.status(500).json({
-          "errors": [
-            {
-              "msg": "Internal Server Error",
-            }
-          ]
-        });
-      }
-
-      if (results.length === 0) {
-        return res.status(400).json({
-          "errors": [
-            {
-              "msg": "Invalid Credentials",
-            }
-          ]
-        });
-      }
-
-      const user = results[0];
+      const userExists:any = await getDoesUserExistData(email);    
+      console.log("User exists:", userExists);
+      const user = userExists[0];
+      console.log("User:", user);
       const savedPassword:string = user.Password;
       // Check password
       const isMatch = await bcrypt.compare(password, savedPassword);
@@ -60,10 +37,10 @@ router.post('/', async (req: Request, res: Response) => {
       });
 
       res.json({
+        username: user.Username,
+        email: user.Email,
         token: token
       });
-    });
-
   } catch (error) {
     console.error("Error in login route:", error);
     res.status(500).json({
