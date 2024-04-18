@@ -16,10 +16,15 @@ router.post('/', [
   check('password', 'Please provide a password that is greater than 5 characters').isLength({ min: 6 })
 ], async (req: Request<{}, {}, SignUpRequest>, res: Response<SignUpResponse>) => {
   const { username, email, password } = req.body;
-  const doesUserExist: any = await getDoesUserExistData(email);
 
-  if (doesUserExist.length > 0) {
-    return res.status(400).json({ errors: [{ msg: "Email already in use" }] });
+  try {
+    const doesUserExist: any = await getDoesUserExistData(email);
+
+    if (doesUserExist.length > 0) {
+      return res.status(400).json({ errors: [{ msg: "Email already in use" }] });
+    }
+  } catch (error) {
+    return res.status(500).json({ errors: [{ msg: "Better luck in the next website" }] });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);

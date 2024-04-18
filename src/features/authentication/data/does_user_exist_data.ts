@@ -5,15 +5,16 @@ import connection from '../../../database';
 const getDoesUserExistData = (email: string) => {
   return new Promise((resolve, reject) => {
     connection.query(`call check_if_user_exists('${email}')`,
-      async (error: string, results: string) => {
+      async (error: any, results: any) => {
         if (error) {
-          reject(error);
+          console.error("Error in getDoesUserExistData:", error);
+          reject("Internal Server Error"); // Reject with a custom error message
         }
 
         console.log(email, 'email');
         console.log(results, 'results');
-        
-        if (results.length === 0 || results[0].length === 0) {
+
+        if (!results || results.length === 0 || results[0].length === 0) {
           resolve(false); // Return false if results are empty
         }
 
@@ -21,4 +22,5 @@ const getDoesUserExistData = (email: string) => {
       });
   });
 };
+
 export default getDoesUserExistData;

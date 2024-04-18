@@ -79,7 +79,7 @@ router.post('/', async (req: Request<LogInRequest>, res: Response<LogInResponse>
     res.status(500).json({
       "errors": [
         {
-          "msg": "Internal Server Error",
+          "msg": "Better luck next time!",
         }
       ]
     });
