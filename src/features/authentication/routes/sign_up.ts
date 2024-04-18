@@ -16,41 +16,29 @@ router.post('/', [
   check('password', 'Please provide a password that is greater than 5 characters').isLength({ min: 6 })
 ], async (req: Request<{}, {}, SignUpRequest>, res: Response<SignUpResponse>) => {
   const { username, email, password } = req.body;
+  const doesUserExist: any = await getDoesUserExistData(email);
 
-  // Check if username field is present
-  if (!username) {
-    return res.status(400).json({ errors: [{ msg: "Username is required" }] });
+  if (doesUserExist.length > 0) {
+    return res.status(400).json({ errors: [{ msg: "Email already in use" }] });
   }
 
-  // Check input
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  // Check if user exists
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const doesUserExist: any = await getDoesUserExistData(email);
-    if (doesUserExist.length > 0) {
-      return res.status(400).json({ errors: [{ msg: "Username already exists" }] });
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const isUserAdded: any = insertNewUser(username, email, hashedPassword);
-    if (isUserAdded) {
-      const jwtKey: string = process.env.normalUserJwtKey || 'ajhhjkfgdsjhdgsajhkdgjhdsgjhjhkdasjhk';
-      const token = JWT.sign({ email }, jwtKey, { expiresIn: 7200 });
-
-      console.log('Hashed password:', hashedPassword);
-
-      return res.json({ token: token, username: username, email: email });
-    } else {
-      // Handle case where user insertion failed
-      return res.status(500).json({ errors: [{ msg: "Failed to add user" }] });
-    }
+    await insertNewUser(username, email, hashedPassword);
+    const jwtKey: string = process.env.normalUserJwtKey || 'ajhhjkfgdsjhdgsajhkdgjhdsgjhjhkdasjhk';
+    const token = JWT.sign({ email }, jwtKey, { expiresIn: 7200 });
+    return res.json(
+      {
+        token: token,
+        username: username,
+        email: email
+      }
+    );
   }
   catch (error) {
     console.error("Error in signUp route:", error);
-    res.status(500).json({ errors: [{ msg: "Internal Server Error" }] });
-  }
-});
+    return res.status(500).json({ errors: [{ msg: "Internal Server Error" }] });
+  };
+}
+);
 export default router;
