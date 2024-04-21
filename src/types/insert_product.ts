@@ -12,5 +12,6 @@ interface InsertProductRequest {
 
 interface InsertProductResponse {
     success: boolean;
+    productId?: number;
 }
 export { InsertProductRequest, InsertProductResponse };

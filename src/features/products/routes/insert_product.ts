@@ -7,10 +7,13 @@ import admin_auth from '../../../middleware/check_admin_auth';
 const router: Router = express.Router();
 
 router.post('/', admin_auth, async (req: Request<InsertProductRequest>, res: Response<InsertProductResponse>) => {
-    const success: any = await insertProduct(req.body);
+    const { success, productId } = await insertProduct(req.body);
     console.log('success:', success);
+    console.log('productId:', productId);
     res.json({
-        success: success
+        success: success,
+        productId: productId
     });
 });
+
 export default router;

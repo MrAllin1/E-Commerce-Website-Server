@@ -5,11 +5,15 @@ import allOffersRouter from './features/offers/routes/all_offers';
 import allProductsRouter from './features/products/routes/all_products';
 import insertProductRouter from './features/products/routes/insert_product';
 import uploadImage from './features/uploadImages/upload_image';
+const cors = require('cors');
+
 const app = express();
 
-const port = 3000;
+const port = 3001;
 
 app.use(express.json());
+app.use(cors());
+
 
 app.use('/signUp', signUpRouter);
 app.use('/logIn', logInRouter);
