@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .upload-container {
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .upload-container:hover {
+            border-color: #aaa;
+        }
+        #fileInput {
+            display: none;
+        }
+        img {
+            max-width: 100%;
+            max-height: 200px;
+        }
+        .message {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input class="form-control" type="file" name="images" multiple>
+        <button class="btn btn-secondary mt-2" type="submit" name="submit">Upload</button>
+    </div>
+</form>
+
+<div id="images">
+</div>  
+
+<script>
+    fetch('/images').then(res => res.json()).then(data => {
+        data.forEach(image => {
+            const div = document.createElement('div');
+            div.classList.add('col-md-3');
+            div.innerHTML = `
+                <div class="card">
+                    <img src="${image.url}" class="card-image-top" alt="...">
+                </div>`;
+            document.querySelector('#images').appendChild(div);
+        });
+    });
+</script>
+
+</body>
+</html>
