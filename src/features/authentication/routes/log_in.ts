@@ -65,11 +65,13 @@ router.post('/', async (req: Request<LogInRequest>, res: Response<LogInResponse>
       const token = JWT.sign(tokenPayload, secretKey, {
         expiresIn: expiresIn // in seconds
       });
+      const role = isAdmin ? 'Administrator' : 'User';
 
       res.json({
         username: user.Username,
         email: user.Email,
-        token: token
+        token: token,
+        role: role
       });
     }
 

@@ -36,7 +36,8 @@ router.post('/', [
       {
         token: token,
         username: username,
-        email: email
+        email: email,
+        role: 'User',
       }
     );
   }

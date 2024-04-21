@@ -1,14 +1,15 @@
 interface SignUpRequest {
-    username: string;
-    email: string;
-    password: string;
-    role: 'Administrator' | 'Shopper';
-  }
-  
-  interface SignUpResponse {
-    username?: string;
-    email?: string;
-    token?: string;
-    errors?: { msg: string }[];
+  username: string;
+  email: string;
+  password: string;
+  role: 'Administrator' | 'Shopper';
 }
-  export { SignUpRequest, SignUpResponse };
+
+interface SignUpResponse {
+  username?: string;
+  email?: string;
+  token?: string;
+  role?: string;
+  errors?: { msg: string }[];
+}
+export { SignUpRequest, SignUpResponse };
