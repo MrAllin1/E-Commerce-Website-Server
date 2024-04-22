@@ -30,8 +30,8 @@ router.post('/', [
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
     await insertNewUser(username, email, hashedPassword);
-    const jwtKey: string = process.env.normalUserJwtKey || 'ajhhjkfgdsjhdgsajhkdgjhdsgjhjhkdasjhk';
-    const token = JWT.sign({ email }, jwtKey, { expiresIn: 7200 });
+    const jwtKey: string = process.env.jwtKey || 'defaultKey'; // Use the same jwtKey for normal users as well
+    const token = JWT.sign({ email, role: 'User' }, jwtKey, { expiresIn: 7200 });
     return res.json(
       {
         token: token,

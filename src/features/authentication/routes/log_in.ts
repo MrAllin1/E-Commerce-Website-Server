@@ -16,65 +16,52 @@ router.post('/', async (req: Request<LogInRequest>, res: Response<LogInResponse>
     // Query to check if user exists
     const userExists: any = await getDoesUserExistData(email);
 
-    const doesUserExist: any = await getDoesUserExistData(email);
-    if (doesUserExist === false) {
+    if (!userExists || userExists.length === 0) {
       return res.status(400).json({
         "errors": [
           {
-            "msg": "User Doesnt Exist",
+            "msg": "User Doesn't Exist",
           }
         ]
       });
+    }
 
-    } else if (doesUserExist.length > 0) {
-      const user = userExists[0];
+    const user = userExists[0];
+    const savedPassword: string = user[0].Password;
 
-      console.log("User:", user);
+    // Check password
+    const isMatch = await bcrypt.compare(password, savedPassword);
 
-      const savedPassword: string = user[0].Password;
-      console.log("Saved password:", savedPassword);
-      console.log('Password:', password);
-      // Check password
-      const isMatch = await bcrypt.compare(password, savedPassword);
-
-      if (!isMatch) {
-        return res.status(400).json({
-          "errors": [
-            {
-              "msg": "Invalid Credentials",
-            }
-          ]
-        });
-      }
-      const isAdmin = user[0].Role === 'Administrator';
-
-      const tokenPayload = {
-        email: email,
-        isAdmin: isAdmin
-      };
-      const normalUserJwtKey: string = process.env.normalUserJwtKey || 'ajhhjkfgdsjhdgsajhkdgjhdsgjhjhkdasjhk';
-      const adminJwtKey: string = process.env.adminJwtKey || 'oqyfqudzrpykbwsqrzvblhtdfpqphmqz';
-      console.log("isAdmin:", isAdmin);
-      console.log("normalUserJwtKey:", normalUserJwtKey);
-      console.log("adminJwtKey:", adminJwtKey);
-
-
-      const secretKey = isAdmin ? adminJwtKey : normalUserJwtKey;
-      const expiresIn = isAdmin ? 3600 : 7200; // Admin token expires in 1 hour, user token expires in 30 minutes
-
-      const token = JWT.sign(tokenPayload, secretKey, {
-        expiresIn: expiresIn // in seconds
-      });
-      const role = isAdmin ? 'Administrator' : 'User';
-
-      res.json({
-        username: user.Username,
-        email: user.Email,
-        token: token,
-        role: role
+    if (!isMatch) {
+      return res.status(400).json({
+        "errors": [
+          {
+            "msg": "Invalid Credentials",
+          }
+        ]
       });
     }
 
+    const isAdmin = user[0].Role === 'Administrator';
+
+    const tokenPayload = {
+      email: email,
+      role: user[0].Role  // Include user's role in the JWT payload
+    };
+
+    const jwtKey: string = process.env.jwtKey || 'defaultKey';
+    const expiresIn = isAdmin ? 3600 : 7200; // Admin token expires in 1 hour, user token expires in 30 minutes
+
+    const token = JWT.sign(tokenPayload, jwtKey, {
+      expiresIn: expiresIn // in seconds
+    });
+
+    res.json({
+      username: user.Username,
+      email: user.Email,
+      token: token,
+      role: user[0].Role
+    });
 
   } catch (error) {
     console.error("Error in login route:", error);

@@ -1,11 +1,10 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../../.env' });
 
 const admin_auth = (req: any, res: any, next: any) => {
     const token = req.header('Authorization');
     if (!token) {
-        // If there's no token, send a response indicating the error.
         return res.status(401).json({
             errors: [
                 {
@@ -16,15 +15,15 @@ const admin_auth = (req: any, res: any, next: any) => {
     }
 
     try {
-        const adminJwtKey: string = process.env.adminJwtKey || 'oqyfqudzrpykbwsqrzvblhtdfpqphmqz';
-        console.log("adminJwtKey:", adminJwtKey);
-        const decoded = jwt.verify(token, adminJwtKey);
-        console.log("Token verified");
-        // Add the decoded user information to the request for later use.
+        const jwtKey: string = process.env.jwtKey || 'defaultKey';
+        const decoded: any = jwt.verify(token, jwtKey);
+        // Check if the role in the decoded payload is 'Administrator'
+        if (decoded.role !== 'Administrator') {
+            throw new Error("User is not an administrator");
+        }
         req.user = decoded;
         next(); // Pass control to the next middleware.
     } catch (error) {
-        // If token verification fails, send an error response.
         return res.status(401).json({
             errors: [
                 {

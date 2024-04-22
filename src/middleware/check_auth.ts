@@ -1,11 +1,10 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../../.env' });
 
 const check_auth = (req: any, res: any, next: any) => {
     const token = req.header('Authorization');
     if (!token) {
-        // If there's no token, send a response indicating the error.
         return res.status(401).json({
             errors: [
                 {
@@ -16,20 +15,21 @@ const check_auth = (req: any, res: any, next: any) => {
     }
 
     try {
-        const normalUserJwtKey: string = process.env.normalUserJwtKey || 'ajhhjkfgdsjhdgsajhkdgjhdsgjhjhkdasjhk';
-        const adminJwtKey: string = process.env.adminJwtKey || 'oqyfqudzrpykbwsqrzvblhtdfpqphmqz';
+        const jwtKey: string = process.env.jwtKey || 'defaultKey';
+        const decoded: any = jwt.verify(token, jwtKey);
 
-        const decoded = jwt.verify(token, normalUserJwtKey || adminJwtKey);
-        console.log("Token verified");
-        // Add the decoded user information to the request for later use.
+        // Check if the role in the decoded payload is 'Administrator' or 'User'
+        if (decoded.role !== 'Administrator' && decoded.role !== 'User') {
+            throw new Error("Invalid role in token");
+        }
+
         req.user = decoded;
         next(); // Pass control to the next middleware.
     } catch (error) {
-        // If token verification fails, send an error response.
         return res.status(401).json({
             errors: [
                 {
-                    msg: "Invalid token",
+                    msg: "Invalid token or insufficient permissions",
                 }
             ]
         });
