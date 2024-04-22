@@ -1,8 +1,8 @@
-interface specificProductRequest {
-    ProductID: number;
+interface specificGenderProductRequest {
+    gender: string;
 }
 
-interface specificProductResponse {
+interface specificGenderProductResponse {
     ProductID: number;
     ProductName: string;
     ProductPrice: number;
@@ -17,4 +17,4 @@ interface specificProductResponse {
 
 }
 
-export { specificProductRequest, specificProductResponse };
+export { specificGenderProductRequest, specificGenderProductResponse };
