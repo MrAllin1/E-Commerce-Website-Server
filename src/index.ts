@@ -6,6 +6,7 @@ import allProductsRouter from './features/products/routes/all_products';
 import insertProductRouter from './features/products/routes/insert_product';
 import uploadImage from './features/uploadImages/upload_image';
 import admin_auth from './middleware/check_admin_auth';
+import listOfProducts from './features/products/routes/list_of_products';
 import specificProduct from './features/products/routes/specific_product';
 
 import specificGenderProduct from './features/products/routes/specific_gender_products';
@@ -26,7 +27,7 @@ app.use('/products', allProductsRouter);
 app.use('/insertProduct', insertProductRouter);
 app.use('/specificProduct', specificProduct);
 app.use('/specificGenderProducts', specificGenderProduct);
-
+app.use('/productList', listOfProducts);
 
 app.use('/upload', admin_auth, uploadImage);
 
