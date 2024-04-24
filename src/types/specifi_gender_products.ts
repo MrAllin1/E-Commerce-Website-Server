@@ -1,6 +1,6 @@
 interface specificGenderProductRequest {
     gender: string;
-    categoryFilters: string[];
+    categoryFilters?: string[];
 }
 
 interface specificGenderProductResponse {

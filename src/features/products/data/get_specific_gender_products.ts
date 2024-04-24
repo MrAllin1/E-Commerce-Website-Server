@@ -1,7 +1,7 @@
 import connection from '../../../database';
 
-const getSpecificGenderProduct = (gender: string, filters: string[]) => {
-    const filtersList = filters.join(',');
+const getSpecificGenderProduct = (gender: string, filters: string[] | undefined) => {
+    const filtersList = filters ? filters.join(',') : []; // If filters is undefined, set it to null
     return new Promise((resolve, reject) => {
         console.log('gender', gender);
         console.log('filters', filtersList);
