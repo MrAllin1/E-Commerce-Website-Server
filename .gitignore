@@ -6,3 +6,6 @@ dist/
 
 # Ignore environment-specific files
 .env
+
+#ignore the database file
+./src/database.ts

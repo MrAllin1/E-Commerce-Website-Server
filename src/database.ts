@@ -1,11 +1,11 @@
 
-var mysql=require('mysql');
+var mysql = require('mysql');
 
-var connection=mysql.createConnection({
-    host:'localhost',
-    database:'e_commerce_database',
-    user:'root',
-    password:'root123',    
+var connection = mysql.createConnection({
+    host: 'localhost',
+    database: 'e_commerce_database',
+    user: 'root',
+    password: 'password',
 });
 
 export default connection;
