@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from "cors"
+import cors from 'cors';
 import signUpRouter from './features/authentication/routes/sign_up';
 import logInRouter from './features/authentication/routes/log_in';
 import allOffersRouter from './features/offers/routes/all_offers';
