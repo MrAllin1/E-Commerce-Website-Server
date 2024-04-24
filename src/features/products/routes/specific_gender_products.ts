@@ -8,9 +8,10 @@ const router: Router = express.Router();
 
 router.post('/', async (req: Request<specificGenderProductRequest>, res: Response<specificGenderProductResponse>) => {
     const gender: string = req.body.gender;
+    const filters: string[] = req.body.categoryFilters;
 
     console.log('GENDERRRRRR', gender, req.body);
-    const products: any = await getSpecificGenderProduct(gender);
+    const products: any = await getSpecificGenderProduct(gender, filters);
     console.log('Products:', products);
     res.json(products);
 });
