@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from "cors"
 import signUpRouter from './features/authentication/routes/sign_up';
 import logInRouter from './features/authentication/routes/log_in';
 import allOffersRouter from './features/offers/routes/all_offers';
@@ -9,15 +10,14 @@ import admin_auth from './middleware/check_admin_auth';
 import specificProduct from './features/products/routes/specific_product';
 
 import specificGenderProduct from './features/products/routes/specific_gender_products';
-const cors = require('cors');
 
 const app = express();
+
 
 const port = 3001;
 
 app.use(express.json());
-app.use(cors());
-
+app.use(cors())
 
 app.use('/signUp', signUpRouter);
 app.use('/logIn', logInRouter);
