@@ -11,6 +11,7 @@ import listOfProducts from './features/products/routes/list_of_products';
 import specificProduct from './features/products/routes/specific_product';
 
 import specificGenderProduct from './features/products/routes/specific_gender_products';
+import delteProductRouter from './features/products/routes/delete_product';
 
 const app = express();
 
@@ -28,6 +29,10 @@ app.use('/insertProduct', insertProductRouter);
 app.use('/specificProduct', specificProduct);
 app.use('/specificGenderProducts', specificGenderProduct);
 app.use('/productList', listOfProducts);
+app.use('/deleteProduct', delteProductRouter)
+
+
+
 
 app.use('/upload', admin_auth, uploadImage);
 
