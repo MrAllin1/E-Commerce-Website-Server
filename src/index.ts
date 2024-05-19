@@ -7,11 +7,13 @@ import allProductsRouter from './features/products/routes/all_products';
 import insertProductRouter from './features/products/routes/insert_product';
 import uploadImage from './features/uploadImages/upload_image';
 import admin_auth from './middleware/check_admin_auth';
+import user_auth from './middleware/check_auth';
 import listOfProducts from './features/products/routes/list_of_products';
 import specificProduct from './features/products/routes/specific_product';
-
 import specificGenderProduct from './features/products/routes/specific_gender_products';
 import delteProductRouter from './features/products/routes/delete_product';
+import buyProduct from './features/purchase/routes/buy_a_product';
+import buyHistoryUser from './features/purchase/routes/user_buy_history';
 
 const app = express();
 
@@ -25,16 +27,14 @@ app.use('/signUp', signUpRouter);
 app.use('/logIn', logInRouter);
 app.use('/offers', allOffersRouter);
 app.use('/products', allProductsRouter);
-app.use('/insertProduct', insertProductRouter);
+app.use('/insertProduct', admin_auth, insertProductRouter);
 app.use('/specificProduct', specificProduct);
 app.use('/specificGenderProducts', specificGenderProduct);
 app.use('/productList', listOfProducts);
 app.use('/deleteProduct', delteProductRouter)
-
-
-
-
 app.use('/upload', admin_auth, uploadImage);
+app.use('/buyProduct', user_auth, buyProduct);
+app.use('/buyHistoryUser', user_auth, buyHistoryUser);
 
 app.listen(port, () => {
     console.log(`Server is running on url http://localhost:${port}`);
