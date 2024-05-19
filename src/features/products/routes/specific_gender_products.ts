@@ -10,9 +10,7 @@ router.post('/', async (req: Request<specificGenderProductRequest>, res: Respons
     const gender: string = req.body.gender;
     const filters: string[] | undefined= req.body.categoryFilters;
 
-    console.log('GENDERRRRRR', gender, req.body);
     const products: any = await getSpecificGenderProduct(gender, filters);
-    console.log('Products:', products);
     res.json(products);
 });
 export default router;
