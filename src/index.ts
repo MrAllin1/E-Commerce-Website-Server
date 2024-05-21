@@ -14,6 +14,7 @@ import specificGenderProduct from './features/products/routes/specific_gender_pr
 import delteProductRouter from './features/products/routes/delete_product';
 import buyProduct from './features/purchase/routes/buy_a_product';
 import buyHistoryUser from './features/purchase/routes/user_buy_history';
+import adminBuyHistory from './features/purchase/routes/admin_buy_history';
 
 const app = express();
 
@@ -35,6 +36,8 @@ app.use('/deleteProduct', delteProductRouter)
 app.use('/upload', admin_auth, uploadImage);
 app.use('/buyProduct', user_auth, buyProduct);
 app.use('/buyHistoryUser', user_auth, buyHistoryUser);
+app.use('/buyHistoryAdmin', admin_auth, adminBuyHistory);
+
 
 app.listen(port, () => {
     console.log(`Server is running on url http://localhost:${port}`);
