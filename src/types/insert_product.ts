@@ -8,6 +8,7 @@ interface InsertProductRequest {
     CategoryName: string;
     BrandName: string;
     MaterialName: string;
+    gender: string;
 }
 
 interface InsertProductResponse {

@@ -8,12 +8,12 @@ interface InsertionResult {
 }
 
 const insertProduct = async (body: InsertProductRequest): Promise<InsertionResult> => {
-    const { productName, productPrice, StockQuantity, Weight, Rating, CategoryName, BrandName, MaterialName } = body;
+    const { productName, productPrice, StockQuantity, Weight, Rating, CategoryName, BrandName, MaterialName, gender } = body;
 
     try {
         const results: any = await new Promise<any>((resolve, reject) => {
-            connection.query(`CALL insert_product(?, ?, ?, ?, ?, ?, ?, ?)`,
-                [productName, productPrice, StockQuantity, Weight, Rating, CategoryName, BrandName, MaterialName],
+            connection.query(`CALL insert_product(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [productName, productPrice, StockQuantity, Weight, Rating, CategoryName, BrandName, MaterialName,gender],
                 (error: any, results: any) => {
                     if (error) {
                         reject(error); // Reject with the actual error
