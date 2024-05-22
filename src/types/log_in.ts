@@ -6,6 +6,7 @@ interface LogInRequest {
 interface LogInResponse {
   username?: string;
   email?: string;
+  userId?: number;
   token?: string;
   role?: string;
   errors?: { msg: string }[];

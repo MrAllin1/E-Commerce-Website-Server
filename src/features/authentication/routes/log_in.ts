@@ -57,8 +57,9 @@ router.post('/', async (req: Request<LogInRequest>, res: Response<LogInResponse>
     });
 
     res.json({
-      username: user.Username,
-      email: user.Email,
+      username: user[0].Username,
+      userId: user[0].UserID,
+      email: user[0].Email,
       token: token,
       role: user[0].Role
     });

@@ -31,13 +31,17 @@ router.post('/', [
   try {
     await insertNewUser(username, email, hashedPassword);
     const jwtKey: string = process.env.jwtKey || 'defaultKey'; // Use the same jwtKey for normal users as well
-    const token = JWT.sign({ email, role: 'User' }, jwtKey, { expiresIn: 7200 });
+    const token = JWT.sign({ email, role: 'Shopper' }, jwtKey, { expiresIn: 7200 });
+    const userExists: any = await getDoesUserExistData(email);
+    const user = userExists[0];
+
     return res.json(
       {
         token: token,
-        username: username,
+        username: user[0].Username,
+        userId: user[0].UserID,
         email: email,
-        role: 'User',
+        role: 'Shopper',
       }
     );
   }
