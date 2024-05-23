@@ -15,6 +15,9 @@ import delteProductRouter from './features/products/routes/delete_product';
 import buyProduct from './features/purchase/routes/buy_a_product';
 import buyHistoryUser from './features/purchase/routes/user_buy_history';
 import adminBuyHistory from './features/purchase/routes/admin_buy_history';
+import markAsComplete from './features/purchase/routes/markAsCompleted';
+import markAsCanceled from './features/purchase/routes/markAsCanceled';
+
 
 const app = express();
 
@@ -37,6 +40,9 @@ app.use('/upload', admin_auth, uploadImage);
 app.use('/buyProduct', user_auth, buyProduct);
 app.use('/buyHistoryUser', user_auth, buyHistoryUser);
 app.use('/buyHistoryAdmin', admin_auth, adminBuyHistory);
+app.use('/markFinished', admin_auth, markAsComplete);
+app.use('/markCanceled', markAsCanceled);
+
 
 
 app.listen(port, () => {
