@@ -11,6 +11,8 @@ router.post('/', async (req: Request<specificGenderProductRequest>, res: Respons
     const filters: string[] | undefined= req.body.categoryFilters;
 
     const products: any = await getSpecificGenderProduct(gender, filters);
+    console.log("blblalblbl" + products.length)
+
     res.json(products);
 });
 export default router;

@@ -12,6 +12,7 @@ const getSpecificProducts = (productIDs: number[]) => {
                 resolve(results[0]);
             }
         });
+        console.log("ghhhhhhhhhhhhhhhh")
     });
 };
 
