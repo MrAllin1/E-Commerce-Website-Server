@@ -13,7 +13,6 @@ const getSpecificProducts = (productIDs: number[]) => {
                 resolve(results[0]);
             }
         });
-        console.log('Product IDsssss--------:', productIDsString);
     });
 };
 export default getSpecificProducts;
