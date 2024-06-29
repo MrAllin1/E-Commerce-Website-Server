@@ -17,8 +17,8 @@ import buyHistoryUser from './features/purchase/routes/user_buy_history';
 import adminBuyHistory from './features/purchase/routes/admin_buy_history';
 import markAsComplete from './features/purchase/routes/markAsCompleted';
 import markAsCanceled from './features/purchase/routes/markAsCanceled';
-import review from "./features/products/routes/review_product"
-
+import review from "./features/products/routes/review_product";
+import sendEmail from './features/purchase/routes/send_email';
 
 
 const app = express();
@@ -44,7 +44,8 @@ app.use('/buyHistoryUser', user_auth, buyHistoryUser);
 app.use('/buyHistoryAdmin', admin_auth, adminBuyHistory);
 app.use('/markFinished', admin_auth, markAsComplete);
 app.use('/markCanceled', markAsCanceled);
-app.use("/",review)
+app.use('/sendEmail', sendEmail);
+app.use("/", review)
 
 
 
