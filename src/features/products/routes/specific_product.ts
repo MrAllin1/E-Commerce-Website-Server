@@ -12,7 +12,6 @@ const router: Router = express.Router();
 router.post('/', async (req: Request<specificProductRequest>, res: Response<specificProductResponse>) => {
     const productID: number = req.body.productID;
     const products: any = await getSpecificProduct(productID);
-    console.log('Products:', products);
     res.json(products);
 });
 
