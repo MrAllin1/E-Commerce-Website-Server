@@ -7,6 +7,9 @@ interface sendEmailRequest {
     numri: string;
     qyteti: string;
     phoneNumber: string;
+    email: string;
+    font?: string;
+    text?: string;
 }
 
 interface sendEmailResponse {

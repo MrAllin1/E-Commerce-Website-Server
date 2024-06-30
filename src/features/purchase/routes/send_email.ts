@@ -8,13 +8,13 @@ const router: Router = express.Router();
 
 router.post('/', async (req: Request<sendEmailRequest>, res: Response<sendEmailResponse>) => {
     try {
-        const { produkti, sasia, emri, mbiemri, numri, adresa, qyteti, phoneNumber } = req.body as sendEmailRequest;
+        const { produkti, sasia, emri, mbiemri, numri, adresa, qyteti, phoneNumber,email, text, font } = req.body as sendEmailRequest;
         console.log(req.body);
 
         const { name, purchase_count } = await getBuyCount(produkti);
         console.log(`Product Name: ${name}, Purchase Count: ${purchase_count}`);
 
-        await sendEmail(name ?? '', sasia, emri, mbiemri, adresa, phoneNumber, qyteti, purchase_count);
+        await sendEmail(name ?? '', sasia, emri, mbiemri, adresa, phoneNumber, qyteti, purchase_count,email, font ?? '', text ?? '');
         res.json({ success: true });
     } catch (error) {
         console.error('Error:', error);
