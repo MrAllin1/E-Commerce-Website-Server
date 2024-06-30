@@ -20,6 +20,8 @@ import markAsCanceled from './features/purchase/routes/markAsCanceled';
 import review from "./features/products/routes/review_product"
 import removeOffer from "./features/offers/routes/remove_offers"
 import addOffer from './features/offers/routes/add_offer';
+import sendEmail from './features/purchase/routes/send_email';
+
 
 
 const app = express();
@@ -47,7 +49,8 @@ app.use('/buyHistoryUser', user_auth, buyHistoryUser);
 app.use('/buyHistoryAdmin', admin_auth, adminBuyHistory);
 app.use('/markFinished', admin_auth, markAsComplete);
 app.use('/markCanceled', markAsCanceled);
-app.use("/",review)
+app.use('/sendEmail', sendEmail);
+app.use("/", review)
 
 
 
