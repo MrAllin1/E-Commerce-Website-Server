@@ -17,8 +17,11 @@ import buyHistoryUser from './features/purchase/routes/user_buy_history';
 import adminBuyHistory from './features/purchase/routes/admin_buy_history';
 import markAsComplete from './features/purchase/routes/markAsCompleted';
 import markAsCanceled from './features/purchase/routes/markAsCanceled';
-import review from "./features/products/routes/review_product";
+import review from "./features/products/routes/review_product"
+import removeOffer from "./features/offers/routes/remove_offers"
+import addOffer from './features/offers/routes/add_offer';
 import sendEmail from './features/purchase/routes/send_email';
+
 
 
 const app = express();
@@ -32,6 +35,8 @@ app.use(cors())
 app.use('/signUp', signUpRouter);
 app.use('/logIn', logInRouter);
 app.use('/offers', allOffersRouter);
+app.use('/removeOffer', removeOffer);
+app.use("/addOffer", addOffer);
 app.use('/products', allProductsRouter);
 app.use('/insertProduct', admin_auth, insertProductRouter);
 app.use('/specificProduct', specificProduct);
