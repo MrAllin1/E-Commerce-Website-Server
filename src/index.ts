@@ -22,6 +22,7 @@ import removeOffer from "./features/offers/routes/remove_offers"
 import addOffer from './features/offers/routes/add_offer';
 import sendEmail from './features/purchase/routes/send_email';
 import cancelEmail from './features/purchase/routes/send_cancel_email';
+import changeProductPrice from "./features/products/routes/change_product_price"
 
 
 const app = express();
@@ -51,7 +52,9 @@ app.use('/markFinished', admin_auth, markAsComplete);
 app.use('/markCanceled', user_auth, markAsCanceled);
 app.use('/sendEmail', user_auth, sendEmail);
 app.use('/sendCancelEmail', user_auth, cancelEmail);
+app.use("/updatePrice",changeProductPrice);
 app.use("/", review)
+
 
 
 
