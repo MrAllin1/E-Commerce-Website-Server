@@ -5,7 +5,7 @@ const getBuyCount = (productId: number): Promise<{ name?: string, purchase_count
         connection.query(
             `CALL get_purchase_count(?)`,
             [productId],
-            (error: string, results: any) => {
+            (error: any, results: any) => {
                 if (error) {
                     reject(error);
                 } else {

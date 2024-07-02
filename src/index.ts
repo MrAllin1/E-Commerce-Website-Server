@@ -43,7 +43,7 @@ app.use('/insertProduct', admin_auth, insertProductRouter);
 app.use('/specificProduct', specificProduct);
 app.use('/specificGenderProducts', specificGenderProduct);
 app.use('/productList', listOfProducts);
-app.use('/deleteProduct', delteProductRouter)
+app.use('/deleteProduct', admin_auth, delteProductRouter)
 app.use('/upload', admin_auth, uploadImage);
 app.use('/buyProduct', user_auth, buyProduct);
 app.use('/buyHistoryUser', user_auth, buyHistoryUser);
@@ -52,7 +52,7 @@ app.use('/markFinished', admin_auth, markAsComplete);
 app.use('/markCanceled', user_auth, markAsCanceled);
 app.use('/sendEmail', user_auth, sendEmail);
 app.use('/sendCancelEmail', user_auth, cancelEmail);
-app.use("/updatePrice",changeProductPrice);
+app.use("/updatePrice", admin_auth, changeProductPrice);
 app.use("/", review)
 
 
