@@ -1,14 +1,8 @@
-require('dotenv').config();
 import express, { Router, Request, Response } from 'express';
 const upload = require('../../multer');
-const cloudinary = require('cloudinary').v2;
+import cloudinary from '../../cloudinary'; // Import the Cloudinary configuration
 import { insertProductImage } from './data/insert_new_image';
 
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET
-});
 function uploadImages(req: express.Request, res: express.Response, next: express.NextFunction) {
 
     upload.array('images', 10)(req, res, (err: any) => {
@@ -52,7 +46,7 @@ function uploadImages(req: express.Request, res: express.Response, next: express
                             .then((result: any) => {
                                 console.log("e dundit ")
                                 resolve({ ...result, url }); // Include URL in resolve
-                                
+
                             })
                             .catch((error: any) => {
                                 reject(error);
@@ -70,4 +64,5 @@ function uploadImages(req: express.Request, res: express.Response, next: express
             });
     });
 }
+
 export default uploadImages;
