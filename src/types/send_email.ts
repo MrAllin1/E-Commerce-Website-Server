@@ -10,6 +10,7 @@ interface sendEmailRequest {
     email: string;
     font?: string;
     text?: string;
+    color?: string;
 }
 
 interface sendEmailResponse {
