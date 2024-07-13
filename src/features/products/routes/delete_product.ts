@@ -11,7 +11,6 @@ router.delete('/:id', async (req: Request, res: Response) => {
     try {
         const productId: number = parseInt(req.params.id, 10);
         const deleteResult = await deleteProductById(productId);
-        console.log("del ", deleteResult)
         if (deleteResult) {
             res.status(200).json({ message: "Product deleted successfully." });
         } else {

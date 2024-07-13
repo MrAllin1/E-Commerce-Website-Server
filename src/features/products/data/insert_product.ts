@@ -22,7 +22,6 @@ const insertProduct = async (body: InsertProductRequest): Promise<InsertionResul
                 });
         });
 
-        console.log('results:', results);
         if (results && results.length > 0 && results[0][0] && results[0][0].ProductID) {
             const productId = results[0][0].ProductID;
             return { success: true, productId }; // Return success along with ProductID
