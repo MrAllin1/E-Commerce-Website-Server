@@ -30,7 +30,6 @@ const sendEmail = (produkti: string, sasia: number, emri: string, mbiemri: strin
                     console.error('Error sending email:', error);
                     reject(error);
                 } else {
-                    console.log('Email sent:', info.response);
                     resolve();
                 }
             });
