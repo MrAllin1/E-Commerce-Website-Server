@@ -21,7 +21,6 @@ router.get('/:ids', async (req: Request, res: Response) => {
     try {
         const productIDs: number[] = req.params.ids.split(',').map((id: string) => parseInt(id, 10));
         const products = await getSpecificProducts(productIDs);
-        console.log('-----------------')
         res.send(products);
     } catch (error) {
         // Handle any errors

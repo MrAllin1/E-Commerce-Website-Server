@@ -6,7 +6,6 @@ const router: Router = express.Router();
 
 router.get('/', async (req, res) => {
     const products: any = await getAllProducts();
-    console.log('Products:', products);
     res.json(products);
 });
 export default router;

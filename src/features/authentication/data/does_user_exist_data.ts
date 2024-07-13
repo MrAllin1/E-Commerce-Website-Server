@@ -11,9 +11,6 @@ const getDoesUserExistData = (email: string) => {
           reject("Internal Server Error"); // Reject with a custom error message
         }
 
-        console.log(email, 'email');
-        console.log(results, 'results');
-
         if (!results || results.length === 0 || results[0].length === 0) {
           resolve(false); // Return false if results are empty
         }

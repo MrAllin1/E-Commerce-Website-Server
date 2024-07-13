@@ -8,8 +8,7 @@ const router: Router = express.Router();
 
 router.post('/', admin_auth, async (req: Request<InsertProductRequest>, res: Response<InsertProductResponse>) => {
     const { success, productId } = await insertProduct(req.body);
-    console.log('success:', success);
-    console.log('productId:', productId);
+
     res.json({
         success: success,
         productId: productId

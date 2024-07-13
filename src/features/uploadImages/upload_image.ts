@@ -12,8 +12,6 @@ function uploadImages(req: express.Request, res: express.Response, next: express
 
         const images: Express.Multer.File[] = req.files as Express.Multer.File[]; // Explicitly define the type
         if (!images || images.length === 0) {
-            console.log("Bla mrii")
-
             return res.status(400).json({ error: 'No image files uploaded' });
         }
 
@@ -23,7 +21,6 @@ function uploadImages(req: express.Request, res: express.Response, next: express
                     if (error) {
                         reject(error);
                     } else {
-                        console.log("Mrrrite ")
                         resolve(result);
                     }
                 }).end(image.buffer);
@@ -44,7 +41,6 @@ function uploadImages(req: express.Request, res: express.Response, next: express
                     return new Promise((resolve, reject) => {
                         insertProductImage(data)
                             .then((result: any) => {
-                                console.log("e dundit ")
                                 resolve({ ...result, url }); // Include URL in resolve
 
                             })

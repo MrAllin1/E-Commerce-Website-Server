@@ -20,7 +20,6 @@ const check_auth = (req: any, res: any, next: any) => {
 
         // Check if the role in the decoded payload is 'Administrator' or 'User'
         if (decoded.role !== 'Administrator' && decoded.role !== 'Shopper') {
-            console.log(decoded.role);
             throw new Error("Invalid role in token");
         }
 
