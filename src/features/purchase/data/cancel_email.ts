@@ -24,7 +24,6 @@ const sendCancelEmail = (email: string) => {
                     console.error('Error sending email:', error);
                     reject(error);
                 } else {
-                    console.log('Email sent:', info.response);
                     resolve();
                 }
             });

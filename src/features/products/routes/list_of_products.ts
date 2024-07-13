@@ -8,7 +8,6 @@ router.post('/', async (req: Request<getListOfProductsRequest>, res: Response<ge
     const productIDs: number[] = req.body.productIDs; // Assuming req.body.productIDs is an array of product IDs
     try {
         const products: any = await getListOfProducts(productIDs);
-        console.log('Products:', products);
         res.json(products);
     } catch (error) {
         console.error('Error:', error);
