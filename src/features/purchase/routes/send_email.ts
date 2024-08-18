@@ -5,7 +5,6 @@ import sendEmail from '../data/send_email';
 import getBuyCount from '../data/get_buys_count';
 
 const router: Router = express.Router();
-
 router.post('/', async (req: Request<sendEmailRequest>, res: Response<sendEmailResponse>) => {
     try {
         console.log('POST / endpoint called.');
@@ -16,7 +15,7 @@ router.post('/', async (req: Request<sendEmailRequest>, res: Response<sendEmailR
         const { name, purchase_count } = await getBuyCount(produkti);
         console.log('getBuyCount called, result:', { name, purchase_count });
 
-        await sendEmail(name ?? '', sasia, emri, mbiemri, adresa, phoneNumber, qyteti, purchase_count, email, font ?? '', text ?? '', color ?? '');
+        await sendEmail(name, sasia, emri, mbiemri, adresa, phoneNumber, qyteti, purchase_count, email, font ?? '', text ?? '', color ?? '');
         console.log('sendEmail called successfully.');
 
         res.json({ success: true });
